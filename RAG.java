@@ -1,7 +1,7 @@
 import java.util.*;
 import java.time.*;
 
-// ----------------------- TariffPlan & Subclasses -----------------------
+
 abstract class TariffPlan {
     String planName;
 
@@ -13,7 +13,7 @@ abstract class TariffPlan {
 
     public double calculateCharge(int units, boolean isPeakHour) {
         double charge = calculateCharge(units);
-        return isPeakHour ? charge * 1.2 : charge; // surcharge for peak hour
+        return isPeakHour ? charge * 1.2 : charge;
     }
 
     public String getPlanName() {
@@ -47,7 +47,7 @@ class CommercialTariff extends TariffPlan {
     }
 }
 
-// ---------------------------- Consumer ----------------------------
+// ---------------------------- Consumer
 class Consumer {
     private static int idCounter = 1000;
     private int consumerId;
@@ -77,14 +77,14 @@ class Consumer {
     }
 }
 
-// ---------------------------- Meter ----------------------------
+// ---------------------------- Meter 
 class Meter {
     private static int meterCounter = 5000;
     private int meterId;
     private Consumer consumer;
     private int lastReading;
     private LocalDate lastReadingDate;
-    private String health; // Good/Needs Maintenance
+    private String health; 
 
     public Meter(Consumer consumer) {
         this.meterId = meterCounter++;
@@ -117,7 +117,7 @@ class Meter {
     }
 }
 
-// ---------------------------- Bill ----------------------------
+// ---------------------------- Bill 
 class Bill {
     private static int billCounter = 2000;
     private int billNo;
@@ -125,7 +125,7 @@ class Bill {
     private int units;
     private double amount;
     private LocalDate dueDate;
-    private String state; // Unpaid/Paid/Late
+    private String state;
 
     public Bill(Consumer consumer, int units, double amount) {
         this.billNo = billCounter++;
@@ -150,7 +150,7 @@ class Bill {
 
     public void applySurcharge() {
         if (state.equals("Unpaid") && LocalDate.now().isAfter(dueDate)) {
-            amount += 50; // Late fee
+            amount += 50;
             state = "Late";
         }
     }
@@ -161,7 +161,7 @@ class Bill {
     }
 }
 
-// ------------------------ UtilityService ------------------------
+// ------------------------ UtilityService 
 class UtilityService {
     private List<Consumer> consumers = new ArrayList<>();
     private List<Meter> meters = new ArrayList<>();
@@ -229,7 +229,7 @@ class UtilityService {
     }
 }
 
-// ---------------------------- Main Class ----------------------------
+// ---------------------------- Main Class
 public class UtilityAppMain {
     public static void main(String[] args) {
         UtilityService service = new UtilityService();
@@ -260,3 +260,4 @@ public class UtilityAppMain {
         service.revenueByTariffType();
     }
 }
+
